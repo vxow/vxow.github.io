@@ -1,1 +1,0 @@
-import{_ as e,c as t,o as r}from"./chunks/framework.DKqERLLM.js";const i=JSON.parse('{"title":"","description":"","frontmatter":{},"headers":[],"relativePath":"frontend/other.md","filePath":"frontend/other.md","lastUpdated":1716281363000}'),o={name:"frontend/other.md"};function a(n,s,c,d,p,f){return r(),t("div")}const m=e(o,[["render",a]]);export{i as __pageData,m as default};
