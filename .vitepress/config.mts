@@ -7,11 +7,9 @@ const navize = 10
 export default defineConfig({
   title: '幺幺灵久',
   description: 'A VitePress Site',
-  lastUpdated: true,
   themeConfig: {
     outline: {
-      label: '页面导航',
-      level: 'deep'
+      label: '页面导航'
     },
     posts: await getPosts(navize),
     nav: [
@@ -22,7 +20,7 @@ export default defineConfig({
         text: '基础知识',
         items: [
           { text: 'css', link: '/frontend/css' },
-          { text: 'javascript', link: '/frontend/javascript' }
+          { text: 'javaScript', link: '/frontend/javaScript' }
         ]
       },
       { text: '历史', link: '/nav/archives' },
