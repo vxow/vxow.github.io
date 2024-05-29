@@ -5,7 +5,7 @@ import { getPosts } from './theme/serverUtils'
 const navize = 10
 
 export default defineConfig({
-  title: '幺幺灵久',
+  title: '幺幺零玖',
   description: 'A VitePress Site',
   themeConfig: {
     outline: {

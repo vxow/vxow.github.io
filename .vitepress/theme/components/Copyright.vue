@@ -1,9 +1,3 @@
-<template>
-    <div class="site-footer">
-        MIT Licensed | Copyright © 2024-present <a class="vitepress" :href="website">{{ webTitle }}</a><br />
-        Powered by <a class="vitepress" target="_blank" href="//vitepress.vuejs.org/">VitePress - 1.1.4</a>
-    </div>
-</template>
 <script lang="ts" setup>
 import { useData } from 'vitepress'
 
@@ -12,18 +6,25 @@ const website = theme.value.website
 const webTitle = site.value.title
 </script>
 
+<template>
+  <div class="site-footer">
+    MIT Licensed | Copyright © 2024-present <a class="vitepress" :href="website">{{ webTitle }}</a><br>
+    Powered by <a class="vitepress" target="_blank" href="//vitepress.vuejs.org/">VitePress</a>
+  </div>
+</template>
+
 <style>
 .site-footer {
-    color: #888;
-    text-align: center;
-    font-size: 0.75rem;
-    width: 100%;
-    padding: 15px 0;
-    overflow: auto;
+  color: #888;
+  text-align: center;
+  font-size: 0.75rem;
+  width: 100%;
+  padding: 15px 0;
+  overflow: auto;
 }
 
 .vitepress {
-    color: var(--vp-c-text-1);
-    font-weight: 700;
+  color: var(--vp-c-text-1);
+  font-weight: 700;
 }
 </style>

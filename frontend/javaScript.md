@@ -1,5 +1,9 @@
 # javaScript
 
+::: tip 本文使用的浏览器
+Chrome 版本 124.0.6367.208（正式版本） (arm64)
+:::
+
 ## 🔸 数据类型
 
 难度：★☆☆☆☆
@@ -144,7 +148,7 @@ JavaScript 是基于原型的语言。当我们访问一个对象的属性时，
 - constructor: 相比于普通对象的属性，prototype 属性本身会有一个属性 constructor，该属性的值为 prototype 所在的函数。
 - \_\_proto\_\_: 每一个对象都有一个 \_\_proto\_\_ 属性（不同对象之间的桥梁），该属性指向对象(实例)所属构造函数(类)的原型 prototype。应该为 [[Prototype]]，主流浏览器实现为 \_\_proto\_\_。
 
-![__proto__](./img/JavaScript/proto.png)
+![__proto__](./img/javaScript/proto.png)
 
 - 一切对象都是继承自 Object 对象，Object 对象直接继承根源对象 null。
 - 一切的函数对象（包括 Object 对象），都是继承自 Function 对象。
@@ -255,11 +259,9 @@ console.log(objCreate.hasOwnProperty) // undefined
 
 对象字面量 < Object.create < new
 
-::: tip 测试浏览器
-Chrome 版本 124.0.6367.208（正式版本） (arm64)
-:::
-
 ## 🔸 this
+
+难度：★☆☆☆☆
 
 根据不同的使用场合，this 有不同的值，主要分为下面几种情况：
 
@@ -267,6 +269,7 @@ Chrome 版本 124.0.6367.208（正式版本） (arm64)
 - 隐式绑定
 - new 绑定
 - 显示绑定
+- 箭头函数
 
 ### 默认绑定
 
@@ -360,6 +363,24 @@ console.log(person.name) // undefined
 
 参考 [bind、call、apply](/frontend/javaScript.html#bind、call、apply)
 
+### 箭头函数
+
+箭头函数绑定父级作用域的上下文
+
+```ts
+const obj = {
+  name: 'zs',
+  fn() {
+    console.log(this.name)
+  },
+  arrowFn: () => {
+    console.log(this)
+  }
+}
+obj.fn() // zs
+obj.arrowFn() // this 指向 严格模式 undefined，非严格模式 window
+```
+
 ## 🔸 bind、call、apply
 
 难度：★☆☆☆☆
@@ -370,12 +391,12 @@ console.log(person.name) // undefined
 const obj = {
   name: 'zs',
   say(...args) {
-    console.log(this.name, 'hello', ...args)
+    console.log(this.name, 'Hello world', ...args)
   }
 }
 
-setTimeout(obj.say, 0) // '' 'hello'   this === window
-setTimeout(obj.say.bind(obj, 1, 2), 0) // zs hello 1 2
+setTimeout(obj.say, 0) // '' 'Hello world'   this === window
+setTimeout(obj.say.bind(obj, 1, 2), 0) // zs Hello world 1 2
 
 const bindFn = obj.say.bind(obj, 1, 2)
 
@@ -424,11 +445,321 @@ fn(1, 2) // this 指向 严格模式 undefined，非严格模式 window
 围绕原始数据类型创建一个显式包装器对象从 ECMAScript 6 开始不再被支持。然而，现有的原始包装器对象，如 new Boolean、new String以及new Number，因为遗留原因仍可被创建。
 :::
 
-### 实现一个 myBind（TODO）
+### 实现一个 myBind
 
 1. 修改 `this` 指向
 2. 动态传递参数
 3. 兼容 `new` 关键字
 
-<script setup>
-</script>
+🪡 TODO
+
+## 🔸 闭包
+
+难度：★★★☆☆
+
+闭包（closure）是一个函数以及其捆绑的周边环境状态（lexical environment，词法环境）的引用的组合。换而言之，闭包让开发者可以从内部函数访问外部函数的作用域。在 JavaScript 中，闭包会随着函数的创建而被同时创建。
+
+> 简单理解：闭包 = 函数 + 函数外部变量。
+
+### 形成闭包的条件
+
+1. 外部函数
+2. 外部函数变量
+3. 内部函数
+4. 内部函数引用外部函数变量
+5. 返回内部函数或通过其他方式保持对内部函数的引用
+
+### 闭包作用
+
+- 封装模块、创建私有变量
+- 函数记忆、状态保持、延迟执行函数
+- 回调函数
+
+### 闭包的缺陷
+
+- 内存占用：闭包会导致外部函数的变量无法被垃圾回收，从而增加内存占用。如果闭包会长时间存在，那么外部变量将无法被释放，可能导致内存泄漏。
+- 性能损耗：闭包涉及到作用域链的查找过程，会带来一定的性能损耗。在性能要求高的场景下，需要注意闭包的使用。
+
+::: tip
+
+- 闭包是 `javaScript` 语言特性
+- 闭包不一定需要 `return`
+- 闭包不一定会造成内存泄露
+- 将闭包引用变量置为 `null`，可手动释放 `闭包` 占用的内存
+
+:::
+
+### 最简单的闭包
+
+```ts
+function outer() {
+  const count = 0
+  function inner() {
+    console.log(count)
+  }
+  inner()
+}
+outer()
+```
+
+在浏览器下可以看到 `count` 变量和 `inner` 函数形成了 `闭包`，后续没有任何引用，`outer()` 执行完毕后生命周期结束。
+
+![简单的闭包示例](./img/javaScript/closure-simple.png)
+
+把 `count` 放到 `inner` 里面看一下效果。
+
+```ts
+function outer() {
+  function inner() {
+    const count = 0
+    console.log(count)
+  }
+  inner()
+}
+outer()
+```
+
+![不是闭包示例](./img/javaScript/no-closure.png)
+
+### 闭包的应用
+
+#### 函数记忆
+
+##### 不使用闭包实现
+
+```ts
+let count = 0
+function sum() {
+  count++
+  console.log(count)
+}
+sum()
+```
+
+缺点
+
+- `count` 为全局公共变量，容易被污染
+
+**使用 `闭包` 实现**
+
+```ts
+function sum() {
+  let count = 0
+  return function () {
+    count++
+    console.log(count)
+  }
+}
+const foo = sum()
+foo()
+foo()
+foo()
+// 1
+// 2
+// 3
+const bar = sum()
+bar()
+bar()
+bar()
+// 1
+// 2
+// 3
+```
+
+优点
+
+- `count` 变量私有化
+
+缺点
+
+- `foo`、`bar` 为全局变量，每次 `sum()` 开辟新的内存，使用完需及时销毁 `foo`、`bar` 变量，否则闭包内的环境会一直占用内存。
+
+**使用 `class` 实现**，使用 `class` 实现性能优于 `闭包`。
+
+```ts
+console.time('class')
+class Counter {
+  constructor() {
+    this.count = 0
+  }
+
+  add() {
+    this.count++
+    console.log(this.count)
+  }
+}
+const c = new Counter()
+c.add()
+c.add()
+c.add()
+// 1
+// 2
+// 3
+console.timeEnd('class') // class: 0.072998046875 ms
+
+console.time('closure')
+function counter() {
+  let count = 0
+  return function () {
+    count++
+    console.log(count)
+  }
+}
+const foo = counter()
+foo()
+foo()
+foo()
+// 1
+// 2
+// 3
+console.timeEnd('closure') // closure: 0.1240234375 ms
+```
+
+#### 私有变量和方法
+
+**使用 `class` 实现**
+
+```ts
+class Person {
+  #name = 'zs'
+  #say() {
+    console.log(this.#name, 'Hello world')
+  }
+
+  constructor() {
+    this.#say()
+  }
+}
+const person = new Person()
+// person.#name 报错
+// person.#say() 报错
+```
+
+**使用 `闭包` 实现**
+
+```ts
+function Person() {
+  const _name = 'zs'
+  const _say = function () {
+    console.log(_name, 'Hello world')
+  }
+  this.say = function () {
+    _say()
+  }
+}
+
+const person = new Person()
+person.say()
+```
+
+#### 单例模式
+
+**使用 `class` 实现**
+
+```ts
+class Singleton {
+  constructor() {
+    if (Singleton.instance) {
+      return Singleton.instance
+    }
+    this.text = 'Hello world'
+    // 只执行一次
+    console.log(this.text)
+    Singleton.instance = this
+  }
+
+  say() {
+    console.log('say', this.text)
+  }
+}
+const instance1 = new Singleton()
+const instance2 = new Singleton()
+instance1.say()
+instance2.say()
+console.log(instance1 === instance2)
+// Hello world
+// say Hello world
+// say Hello world
+// true
+```
+
+**使用 `闭包` 实现**
+
+```ts
+const say = (function () {
+  const text = 'Hello world'
+  // 只执行一次
+  console.log(text)
+  function _say() {
+    console.log('say', text)
+  }
+  return _say
+})()
+say()
+say()
+// Hello world
+// say Hello world
+// say Hello world
+```
+
+#### 回调函数
+
+通过回调函数方式防止 `var` 变量提升。
+
+**变量提升**
+
+```ts
+const list = []
+// eslint-disable-next-line vars-on-top, no-var
+for (var i = 0; i < 3; i++) {
+  list[i] = function () {
+    console.log(i)
+  }
+}
+list[0]()
+list[1]()
+list[2]()
+// 3
+// 3
+// 3
+```
+
+**使用 `闭包` 防止变量提升**
+
+```ts
+const list = []
+// eslint-disable-next-line vars-on-top, no-var
+for (var i = 0; i < 3; i++) {
+  (function (i) {
+    list[i] = function () {
+      console.log(i)
+    }
+  })(i)
+}
+list[0]()
+list[1]()
+list[2]()
+// 0
+// 1
+// 2
+```
+
+#### 延迟执行函数
+
+```ts
+function delay(message, time) {
+  return function () {
+    setTimeout(() => {
+      console.log(message)
+    }, time)
+  }
+}
+const fn = delay('Hello world', 1000)
+fn()
+```
+
+#### 柯里化函数
+
+🪡 TODO
+
+<script setup></script>

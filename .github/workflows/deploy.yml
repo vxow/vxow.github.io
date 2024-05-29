@@ -44,5 +44,5 @@ jobs:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           personal_token: ${{ secrets.PERSONAL_TOKEN }}
           publish_dir: .vitepress/dist
-          user_name: 幺幺灵久
+          user_name: 幺幺零玖
           user_email: gmj413966791@163.com

@@ -1,6 +1,6 @@
 # css
 
-## BFC
+## 🔸 BFC
 
 难度：★★☆☆☆
 
@@ -21,4 +21,4 @@
 - overflow：当一个元素的 `overflow` 属性值不是 visible、clip 时。比如：overflow: hidden、overflow: auto。
 - float：即 `float` 属性值不为 none。
 - position：即 `position` 属性值是 absolute 或 fixed。
-- display：当一个元素的 `display` 属性设置成 flex-root、flex、grid、inline-block、table、table-cell、table-caption。
+- display：当一个元素的 `display` 属性设置成 flow-root、flex、grid、inline-block、table、table-cell、table-caption。
