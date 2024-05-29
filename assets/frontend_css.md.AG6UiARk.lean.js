@@ -1,0 +1,1 @@
+import{_ as e,c as o,o as a,a3 as t}from"./chunks/framework.BJvaP-oW.js";const u=JSON.parse('{"title":"css","description":"","frontmatter":{},"headers":[],"relativePath":"frontend/css.md","filePath":"frontend/css.md"}'),l={name:"frontend/css.md"},c=t("",9),i=[c];function s(d,r,n,h,f,_){return a(),o("div",null,i)}const b=e(l,[["render",s]]);export{u as __pageData,b as default};
