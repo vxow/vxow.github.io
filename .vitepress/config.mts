@@ -1,6 +1,7 @@
 import { defineConfig } from 'vitepress'
 import type { DefaultTheme } from 'vitepress'
 import { getPosts } from './theme/serverUtils'
+import imagePlugin from './markdown/imagePlugin'
 
 const navize = 10
 
@@ -9,7 +10,7 @@ export default defineConfig({
   description: 'A VitePress Site',
   themeConfig: {
     outline: {
-      label: '页面导航'
+      label: '页面导航',
     },
     posts: await getPosts(navize),
     nav: [
@@ -19,18 +20,26 @@ export default defineConfig({
       {
         text: '基础知识',
         items: [
+          { text: 'browser', link: '/frontend/browser' },
+          { text: 'html', link: '/frontend/html' },
           { text: 'css', link: '/frontend/css' },
-          { text: 'javaScript', link: '/frontend/javaScript' }
-        ]
+          { text: 'javaScript', link: '/frontend/javaScript' },
+          { text: 'vue', link: '/frontend/vue' },
+        ],
       },
       { text: '历史', link: '/nav/archives' },
-      { text: '关于', link: '/nav/about' }
+      { text: '关于', link: '/nav/about' },
     ],
     search: {
-      provider: 'local'
+      provider: 'local',
     },
     socialLinks: [
-      { icon: 'github', link: 'https://github.com/vuejs/vitepress' }
-    ]
-  } as DefaultTheme.Config
+      { icon: 'github', link: 'https://github.com/vuejs/vitepress' },
+    ],
+  } as DefaultTheme.Config,
+  markdown: {
+    config: (md) => {
+      md.use(imagePlugin)
+    },
+  },
 })
