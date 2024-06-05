@@ -1,16 +1,20 @@
-export default function (md) {
+import type MarkdownIt from 'markdown-it'
+
+export default function (md: MarkdownIt) {
   md.renderer.rules.image = (...props) => {
     const [tokens, idx] = props
     const token = tokens[idx]
-    let attrs = ''
-    for (const [key, value] of token.attrs) {
-      if (key === 'alt') {
-        attrs += `${key}="${token.content}"`
-      }
-      else {
-        attrs += `${key}="${value}"`
+    const attrs = []
+    if (token.attrs) {
+      for (const [key, value] of token.attrs) {
+        if (key === 'alt') {
+          attrs.push(`${key}="${token.content}"`)
+        }
+        else {
+          attrs.push(`${key}="${value}"`)
+        }
       }
     }
-    return `<Image ${attrs} :preview-mask="false" />`
+    return `<ClientOnly><Image ${attrs.join(' ')} :preview-mask="false" /></ClientOnly>`
   }
 };

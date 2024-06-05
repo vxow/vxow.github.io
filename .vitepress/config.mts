@@ -39,7 +39,7 @@ export default defineConfig({
   } as DefaultTheme.Config,
   markdown: {
     config: (md) => {
-      md.use(imagePlugin)
+      md.use(imagePlugin as any)
     },
   },
 })

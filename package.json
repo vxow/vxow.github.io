@@ -10,6 +10,8 @@
   },
   "devDependencies": {
     "@antfu/eslint-config": "^2.19.0",
+    "@types/markdown-it": "^14.1.1",
+    "@vue/runtime-dom": "^3.4.27",
     "ant-design-vue": "^4.2.1",
     "autoprefixer": "^10.4.19",
     "eslint": "^9.3.0",
@@ -17,11 +19,13 @@
     "fs-extra": "^11.2.0",
     "globby": "^14.0.1",
     "gray-matter": "^4.0.3",
+    "markdown-it": "^14.1.0",
     "prettier": "^3.2.5",
     "sass": "^1.77.2",
     "tailwindcss": "^3.4.3",
     "unplugin-vue-components": "^0.27.0",
     "vite": "^5.2.12",
-    "vitepress": "^1.2.2"
+    "vitepress": "^1.2.2",
+    "vue": "^3.4.27"
   }
 }

@@ -12,8 +12,8 @@ Chrome 版本 124.0.6367.208（正式版本） (arm64)
 
 `String、Boolean、Number、Null、Undefined、Symbol、BigInt。`
 
-- BigInt 类型在 `JavaScript` 中是一个数字的原始值，它可以表示任意大小的整数。使用 BigInt，你可以安全地存储和操作巨大的整数，甚至超过 Number 的安全整数限制（Number.MAX_SAFE_INTEGER）。
-- Symbol 是唯一并且不可变的原始值并且可以用来作为对象属性的键。
+- `BigInt` 类型在 `JavaScript` 中是一个数字的原始值，它可以表示任意大小的整数。使用 BigInt，你可以安全地存储和操作巨大的整数，甚至超过 Number 的安全整数限制（`Number.MAX_SAFE_INTEGER`）。
+- `Symbol` 是唯一并且不可变的原始值并且可以用来作为对象属性的键。
 
 ### 引用数据类型（对象类型）
 
@@ -42,7 +42,7 @@ const name = '张三'
 const age = 18
 ```
 
-![栈](./img/javaScript/stack.png)
+![栈](/img/javaScript/stack.png)
 
 #### 栈赋值
 
@@ -52,7 +52,7 @@ const name2 = name
 name = '李四'
 ```
 
-![栈赋值](./img/javaScript/clone-stack.png)
+![栈赋值](/img/javaScript/clone-stack.png)
 
 **堆内存**
 
@@ -64,18 +64,18 @@ const name = '张三'
 const age = 18
 const obj = {
   name: '张三',
-  age: 18
+  age: 18,
 }
 ```
 
-![堆](./img/javaScript/heap.png)
+![堆](/img/javaScript/heap.png)
 
 #### 堆赋值
 
 ```ts
 const obj = {
   name: '张三',
-  age: 18
+  age: 18,
 }
 const obj2 = obj
 obj.age = 20
@@ -85,7 +85,7 @@ console.log(obj2.age)
 
 修改 `obj.age` 会影响 `obj2.age`。
 
-![堆赋值](./img/javaScript/clone-heap.png)
+![堆赋值](/img/javaScript/clone-heap.png)
 
 ## 🔸 浅拷贝&深拷贝
 
@@ -95,7 +95,7 @@ console.log(obj2.age)
 
 创建一个新对象，这个新对象的属性值是原对象属性值的引用。
 
-![浅拷贝](./img/javaScript/clone.png)
+![浅拷贝](/img/javaScript/clone.png)
 
 #### 浅拷贝方法
 
@@ -113,19 +113,19 @@ const obj = {
   age: 18,
   childArr: [1, 2, 3],
   childObj: {
-    childName: '张三2'
+    childName: '张三2',
   },
   childArr2: [1],
   childObj2: {
-    childName: '张三3'
-  }
+    childName: '张三3',
+  },
 }
 const obj2 = Object.assign({}, obj)
 obj2.name = '李四'
 obj2.age = 20
 obj2.childArr = [4, 5, 6]
 obj2.childObj = {
-  childName: '李四2'
+  childName: '李四2',
 }
 obj2.childArr2[0] = 4
 obj2.childObj2.childName = '李四3'
@@ -162,7 +162,7 @@ const obj2 = Object.create(obj)
 ```ts
 const obj = {}
 const obj2 = {
-  ...obj
+  ...obj,
 }
 ```
 
@@ -180,10 +180,12 @@ const list5 = Array.from(list)
 
 ```ts
 function clone(value) {
-  if (value === null)
+  if (value === null) {
     return null
-  if (typeof value !== 'object')
+  }
+  if (typeof value !== 'object') {
     return value
+  }
   // TODO Date、RegExp、Symbol、Buffer、ArrayBuffer、DataView、TypedArray
   const result = new value.constructor()
   for (const prop in value) {
@@ -197,7 +199,7 @@ function clone(value) {
 
 ### 深拷贝
 
-![深拷贝](./img/javaScript/cloneDeep.png)
+![深拷贝](/img/javaScript/cloneDeep.png)
 
 #### 深拷贝方法
 
@@ -215,8 +217,8 @@ const obj = {
   age: 18,
   childArr: [1],
   childObj: {
-    childName: '张三3'
-  }
+    childName: '张三3',
+  },
 }
 const obj2 = JSON.parse(JSON.stringify(obj))
 obj2.childArr[0] = 2
@@ -266,13 +268,16 @@ const obj2 = $.extend(true, {}, obj)
 
 ```ts
 function cloneDeep(value, hash = new WeakMap()) {
-  if (value === null)
+  if (value === null) {
     return null
-  if (typeof value !== 'object')
+  }
+  if (typeof value !== 'object') {
     return value
+  }
   // TODO Date、RegExp、Symbol、Buffer、ArrayBuffer、DataView、TypedArray
-  if (hash.get(value))
+  if (hash.get(value)) {
     return hash.get(value)
+  }
   const result = new value.constructor()
   hash.set(value, result)
   for (const key in value) {
@@ -290,20 +295,20 @@ function cloneDeep(value, hash = new WeakMap()) {
 typeof 能够检测出 string、number、boolean、function、symbol、bigint。
 
 ```ts
-typeof 1 // 'number'
-typeof '1' // 'string'
-typeof true // 'boolean'
-typeof undefined // 'undefined'
-typeof null // 'object'
-typeof [] // 'object'
-typeof {} // 'object'
-typeof console // 'object'
-typeof console.log // 'function'
-typeof new Date() // 'object'
-typeof Date() // 'string'
-typeof Symbol('') // 'symbol'
-typeof 1n === 'bigint' // true
-typeof BigInt('1') === 'bigint' // true
+typeof 1// 'number'
+typeof '1'// 'string'
+typeof true// 'boolean'
+typeof undefined// 'undefined'
+typeof null// 'object'
+typeof []// 'object'
+typeof {}// 'object'
+typeof console// 'object'
+typeof console.log// 'function'
+typeof new Date()// 'object'
+typeof Date()// 'string'
+typeof Symbol('')// 'symbol'
+typeof 1n === 'bigint'// true
+typeof BigInt('1') === 'bigint'// true
 ```
 
 - instanceof 运算符用于检测构造函数的 prototype 属性是否出现在某个实例对象的原型链上。
@@ -322,7 +327,7 @@ function myInstanceof(left, right) {
       return false
     }
     if (proto === right.prototype) {
-      return true // 找到相同原型对象，返回true
+      return true// 找到相同原型对象，返回true
     }
     proto = Object.getPrototypeof(proto)
   }
@@ -332,21 +337,21 @@ function myInstanceof(left, right) {
 ### 准确的判断类型
 
 ```ts
-Object.prototype.toString.call({}) // "[object Object]"
-Object.prototype.toString.call(1) // "[object Number]"
-Object.prototype.toString.call('1') // "[object String]"
-Object.prototype.toString.call(true) // "[object Boolean]"
-Object.prototype.toString.call(() => {}) // "[object Function]"
-Object.prototype.toString.call(null) // "[object Null]"
-Object.prototype.toString.call(undefined) // "[object Undefined]"
-Object.prototype.toString.call(/123/g) // "[object RegExp]"
-Object.prototype.toString.call(new Date()) // "[object Date]"
-Object.prototype.toString.call([]) // "[object Array]"
-Object.prototype.toString.call(document) // "[object HTMLDocument]"
-Object.prototype.toString.call(window) // "[object Window]"
-Object.prototype.toString.call(1n) // "[object BigInt]"
-Object.prototype.toString.call(BigInt('1')) // "[object BigInt]"
-Object.prototype.toString.call(Symbol('')) // "[object Symbol]"
+Object.prototype.toString.call({})// "[object Object]"
+Object.prototype.toString.call(1)// "[object Number]"
+Object.prototype.toString.call('1')// "[object String]"
+Object.prototype.toString.call(true)// "[object Boolean]"
+Object.prototype.toString.call(() => {})// "[object Function]"
+Object.prototype.toString.call(null)// "[object Null]"
+Object.prototype.toString.call(undefined)// "[object Undefined]"
+Object.prototype.toString.call(/123/g)// "[object RegExp]"
+Object.prototype.toString.call(new Date())// "[object Date]"
+Object.prototype.toString.call([])// "[object Array]"
+Object.prototype.toString.call(document)// "[object HTMLDocument]"
+Object.prototype.toString.call(window)// "[object Window]"
+Object.prototype.toString.call(1n)// "[object BigInt]"
+Object.prototype.toString.call(BigInt('1'))// "[object BigInt]"
+Object.prototype.toString.call(Symbol(''))// "[object Symbol]"
 ```
 
 ## 🔸 类型转换
@@ -409,7 +414,7 @@ Object.prototype.toString.call(Symbol('')) // "[object Symbol]"
 
 ```ts
 const string = 'Hello World'
-string.substring(5, -1) // => string.substring(5, 0) => string.substring(0, 5)
+string.substring(5, -1)// => string.substring(5, 0) => string.substring(0, 5)
 // 'Hello'
 ```
 
@@ -446,7 +451,7 @@ string.substring(5, -1) // => string.substring(5, 0) => string.substring(0, 5)
 - constructor: 相比于普通对象的属性，prototype 属性本身会有一个属性 constructor，该属性的值为 prototype 所在的函数。
 - \_\_proto\_\_: 每一个对象都有一个 \_\_proto\_\_ 属性（不同对象之间的桥梁），该属性指向对象(实例)所属构造函数(类)的原型 prototype。应该为 [[Prototype]]，主流浏览器实现为 \_\_proto\_\_。
 
-![原型链](./img/javaScript/proto.png)
+![原型链](/img/javaScript/proto.png)
 
 - 一切对象都是继承自 Object 对象，Object 对象直接继承根源对象 null。
 - 一切的函数对象（包括 Object 对象），都是继承自 Function 对象。
@@ -469,8 +474,8 @@ Person.getName = function () {
   console.log(this.name)
 }
 // 调用方法
-Person.getName() // 张三
-console.timeEnd('函数字面量运行时间') // 0.376953125 ms
+Person.getName()// 张三
+console.timeEnd('函数字面量运行时间')// 0.376953125 ms
 ```
 
 ### [new](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Operators/new)
@@ -494,8 +499,8 @@ console.time('构造函数运行时间')
 // 生成实例
 const person = new Person('张三')
 // 调用方法
-person.getName() // 张三
-console.timeEnd('构造函数运行时间') // 构造函数运行时间: 0.489013671875 ms
+person.getName()// 张三
+console.timeEnd('构造函数运行时间')// 构造函数运行时间: 0.489013671875 ms
 ```
 
 #### 实现一个 myNew
@@ -505,7 +510,7 @@ function myNew(constructor, ...args) {
   // 1. 创建一个新对象
   const obj = {}
   // 2. 新对象原型指向构造函数原型对象
-  Object.setPrototypeOf(obj, constructor.prototype) // obj.__proto__ = constructor.prototype
+  Object.setPrototypeOf(obj, constructor.prototype)// obj.__proto__ = constructor.prototype
   // 3. 将构建函数的 this 指向新对象
   const result = constructor.apply(obj, args)
   // 4. 根据返回值判断
@@ -520,7 +525,7 @@ Person.prototype.say = function () {
 }
 
 const p = myNew(Person, '张三', 18)
-p.say() // 张三 18
+p.say()// 张三 18
 ```
 
 ::: tip
@@ -541,16 +546,16 @@ Person.getName = function () {
   console.log(this.name)
 }
 // 调用方法
-Person.getName() // 张三
-console.timeEnd('create运行时间') // 0.429931640625 ms
+Person.getName()// 张三
+console.timeEnd('create运行时间')// 0.429931640625 ms
 ```
 
 ```ts
-Object.create(null) // 创建一个纯净的对象
+Object.create(null)// 创建一个纯净的对象
 const obj = {}
 const objCreate = Object.create(null)
-console.log(obj.hasOwnProperty) // ƒ hasOwnProperty() { [native code] }
-console.log(objCreate.hasOwnProperty) // undefined
+console.log(obj.hasOwnProperty)// ƒ hasOwnProperty() { [native code] }
+console.log(objCreate.hasOwnProperty)// undefined
 ```
 
 ### 运行时间
@@ -579,7 +584,7 @@ var name = '张三'
 function person() {
   return this.name
 }
-console.log(person()) // 张三
+console.log(person())// 张三
 ```
 
 严格模式 `this` 指向 `undefined`
@@ -591,7 +596,7 @@ var name = '张三'
 function person() {
   console.log(this)
 }
-person() // undefined
+person()// undefined
 ```
 
 ### 隐式绑定
@@ -611,8 +616,8 @@ const obj = {
   },
 }
 
-obj.person() // 张三
-obj.nest.person() // undefined
+obj.person()// 张三
+obj.nest.person()// undefined
 ```
 
 `this` 永远指向的是最后调用它的对象
@@ -629,7 +634,7 @@ const obj = {
 
 const obj2 = obj.person
 
-obj2() // 严格模式 undefined，非严格模式 window
+obj2()// 严格模式 undefined，非严格模式 window
 ```
 
 ### new 绑定
@@ -644,7 +649,7 @@ function Person() {
 }
 
 const person = new Person()
-console.log(person.name) // 张三
+console.log(person.name)// 张三
 ```
 
 ```ts
@@ -654,7 +659,7 @@ function Person() {
 }
 
 const person = new Person()
-console.log(person.name) // undefined
+console.log(person.name)// undefined
 ```
 
 ### 显示绑定
@@ -675,8 +680,8 @@ const obj = {
     console.log(this)
   },
 }
-obj.fn() // 张三
-obj.arrowFn() // this 指向 严格模式 undefined，非严格模式 window
+obj.fn()// 张三
+obj.arrowFn()// this 指向 严格模式 undefined，非严格模式 window
 ```
 
 ## 🔸 bind、call、apply
@@ -693,8 +698,8 @@ const obj = {
   },
 }
 
-setTimeout(obj.say, 0) // ''  this === window
-setTimeout(obj.say.bind(obj, 1, 2), 0) // 张三 1 2
+setTimeout(obj.say, 0)// ''  this === window
+setTimeout(obj.say.bind(obj, 1, 2), 0)// 张三 1 2
 
 const bindFn = obj.say.bind(obj, 1, 2)
 bindFn(3, 4)
@@ -710,8 +715,8 @@ function fn(...args) {
 const obj = {
   name: '张三',
 }
-fn.apply(obj, [1, 2]) // this 会变成传入的 obj，传入的参数必须是一个数组
-fn(1, 2) // this 指向 严格模式 undefined，非严格模式 window
+fn.apply(obj, [1, 2])// this 会变成传入的 obj，传入的参数必须是一个数组
+fn(1, 2)// this 指向 严格模式 undefined，非严格模式 window
 ```
 
 - call 和 apply 使用方式几乎一样，只是参数是一个列表
@@ -723,8 +728,8 @@ function fn(...args) {
 const obj = {
   name: '张三',
 }
-fn.call(obj, 1, 2) // this 会变成传入的 obj，传入的参数必须是一个数组
-fn(1, 2) // this 指向 严格模式 undefined，非严格模式 window
+fn.call(obj, 1, 2)// this 会变成传入的 obj，传入的参数必须是一个数组
+fn(1, 2)// this 指向 严格模式 undefined，非严格模式 window
 ```
 
 当第一个参数传入非引用类型时情况如下：
@@ -864,7 +869,7 @@ outer()
 
 在浏览器下可以看到 `count` 变量和 `inner` 函数形成了 `闭包`，后续没有任何引用，`outer()` 执行完毕后生命周期结束。
 
-![简单的闭包示例](./img/javaScript/closure-simple.png)
+![简单的闭包示例](/img/javaScript/closure-simple.png)
 
 把 `count` 放到 `inner` 里面看一下效果。
 
@@ -879,7 +884,7 @@ function outer() {
 outer()
 ```
 
-![不是闭包示例](./img/javaScript/no-closure.png)
+![不是闭包示例](/img/javaScript/no-closure.png)
 
 ### 闭包的应用
 
@@ -955,7 +960,7 @@ c.add()
 // 1
 // 2
 // 3
-console.timeEnd('class') // class: 0.072998046875 ms
+console.timeEnd('class')// class: 0.072998046875 ms
 
 console.time('closure')
 function counter() {
@@ -972,7 +977,7 @@ foo()
 // 1
 // 2
 // 3
-console.timeEnd('closure') // closure: 0.1240234375 ms
+console.timeEnd('closure')// closure: 0.1240234375 ms
 ```
 
 #### 私有变量和方法
@@ -1168,11 +1173,4 @@ function f2(x) {
 
 https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Guide/Regular_Expressions
 
-<script setup>
-import heep1 from './img/javaScript/closure-simple.png'
-import heep2 from './img/javaScript/no-closure.png'
-const heapImages = [
-  heep1,
-  heep2
-]
-</script>
+<script setup></script>
