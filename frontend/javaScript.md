@@ -64,7 +64,7 @@ const name = '张三'
 const age = 18
 const obj = {
   name: '张三',
-  age: 18,
+  age: 18
 }
 ```
 
@@ -75,7 +75,7 @@ const obj = {
 ```ts
 const obj = {
   name: '张三',
-  age: 18,
+  age: 18
 }
 const obj2 = obj
 obj.age = 20
@@ -113,19 +113,19 @@ const obj = {
   age: 18,
   childArr: [1, 2, 3],
   childObj: {
-    childName: '张三2',
+    childName: '张三2'
   },
   childArr2: [1],
   childObj2: {
-    childName: '张三3',
-  },
+    childName: '张三3'
+  }
 }
 const obj2 = Object.assign({}, obj)
 obj2.name = '李四'
 obj2.age = 20
 obj2.childArr = [4, 5, 6]
 obj2.childObj = {
-  childName: '李四2',
+  childName: '李四2'
 }
 obj2.childArr2[0] = 4
 obj2.childObj2.childName = '李四3'
@@ -162,7 +162,7 @@ const obj2 = Object.create(obj)
 ```ts
 const obj = {}
 const obj2 = {
-  ...obj,
+  ...obj
 }
 ```
 
@@ -217,8 +217,8 @@ const obj = {
   age: 18,
   childArr: [1],
   childObj: {
-    childName: '张三3',
-  },
+    childName: '张三3'
+  }
 }
 const obj2 = JSON.parse(JSON.stringify(obj))
 obj2.childArr[0] = 2
@@ -295,20 +295,20 @@ function cloneDeep(value, hash = new WeakMap()) {
 typeof 能够检测出 string、number、boolean、function、symbol、bigint。
 
 ```ts
-typeof 1// 'number'
-typeof '1'// 'string'
-typeof true// 'boolean'
-typeof undefined// 'undefined'
-typeof null// 'object'
-typeof []// 'object'
-typeof {}// 'object'
-typeof console// 'object'
-typeof console.log// 'function'
-typeof new Date()// 'object'
-typeof Date()// 'string'
-typeof Symbol('')// 'symbol'
-typeof 1n === 'bigint'// true
-typeof BigInt('1') === 'bigint'// true
+typeof 1 // 'number'
+typeof '1' // 'string'
+typeof true // 'boolean'
+typeof undefined // 'undefined'
+typeof null // 'object'
+typeof [] // 'object'
+typeof {} // 'object'
+typeof console // 'object'
+typeof console.log // 'function'
+typeof new Date() // 'object'
+typeof Date() // 'string'
+typeof Symbol('') // 'symbol'
+typeof 1n === 'bigint' // true
+typeof BigInt('1') === 'bigint' // true
 ```
 
 - instanceof 运算符用于检测构造函数的 prototype 属性是否出现在某个实例对象的原型链上。
@@ -327,7 +327,7 @@ function myInstanceof(left, right) {
       return false
     }
     if (proto === right.prototype) {
-      return true// 找到相同原型对象，返回true
+      return true // 找到相同原型对象，返回true
     }
     proto = Object.getPrototypeof(proto)
   }
@@ -337,21 +337,21 @@ function myInstanceof(left, right) {
 ### 准确的判断类型
 
 ```ts
-Object.prototype.toString.call({})// "[object Object]"
-Object.prototype.toString.call(1)// "[object Number]"
-Object.prototype.toString.call('1')// "[object String]"
-Object.prototype.toString.call(true)// "[object Boolean]"
-Object.prototype.toString.call(() => {})// "[object Function]"
-Object.prototype.toString.call(null)// "[object Null]"
-Object.prototype.toString.call(undefined)// "[object Undefined]"
-Object.prototype.toString.call(/123/g)// "[object RegExp]"
-Object.prototype.toString.call(new Date())// "[object Date]"
-Object.prototype.toString.call([])// "[object Array]"
-Object.prototype.toString.call(document)// "[object HTMLDocument]"
-Object.prototype.toString.call(window)// "[object Window]"
-Object.prototype.toString.call(1n)// "[object BigInt]"
-Object.prototype.toString.call(BigInt('1'))// "[object BigInt]"
-Object.prototype.toString.call(Symbol(''))// "[object Symbol]"
+Object.prototype.toString.call({}) // "[object Object]"
+Object.prototype.toString.call(1) // "[object Number]"
+Object.prototype.toString.call('1') // "[object String]"
+Object.prototype.toString.call(true) // "[object Boolean]"
+Object.prototype.toString.call(() => {}) // "[object Function]"
+Object.prototype.toString.call(null) // "[object Null]"
+Object.prototype.toString.call(undefined) // "[object Undefined]"
+Object.prototype.toString.call(/123/g) // "[object RegExp]"
+Object.prototype.toString.call(new Date()) // "[object Date]"
+Object.prototype.toString.call([]) // "[object Array]"
+Object.prototype.toString.call(document) // "[object HTMLDocument]"
+Object.prototype.toString.call(window) // "[object Window]"
+Object.prototype.toString.call(1n) // "[object BigInt]"
+Object.prototype.toString.call(BigInt('1')) // "[object BigInt]"
+Object.prototype.toString.call(Symbol('')) // "[object Symbol]"
 ```
 
 ## 🔸 类型转换
@@ -414,7 +414,7 @@ Object.prototype.toString.call(Symbol(''))// "[object Symbol]"
 
 ```ts
 const string = 'Hello World'
-string.substring(5, -1)// => string.substring(5, 0) => string.substring(0, 5)
+string.substring(5, -1) // => string.substring(5, 0) => string.substring(0, 5)
 // 'Hello'
 ```
 
@@ -468,14 +468,14 @@ string.substring(5, -1)// => string.substring(5, 0) => string.substring(0, 5)
 console.time('函数字面量运行时间')
 // 嵌套函数字面量
 const Person = {
-  name: '张三',
+  name: '张三'
 }
 Person.getName = function () {
   console.log(this.name)
 }
 // 调用方法
-Person.getName()// 张三
-console.timeEnd('函数字面量运行时间')// 0.376953125 ms
+Person.getName() // 张三
+console.timeEnd('函数字面量运行时间') // 0.376953125 ms
 ```
 
 ### [new](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Operators/new)
@@ -499,8 +499,8 @@ console.time('构造函数运行时间')
 // 生成实例
 const person = new Person('张三')
 // 调用方法
-person.getName()// 张三
-console.timeEnd('构造函数运行时间')// 构造函数运行时间: 0.489013671875 ms
+person.getName() // 张三
+console.timeEnd('构造函数运行时间') // 构造函数运行时间: 0.489013671875 ms
 ```
 
 #### 实现一个 myNew
@@ -510,7 +510,7 @@ function myNew(constructor, ...args) {
   // 1. 创建一个新对象
   const obj = {}
   // 2. 新对象原型指向构造函数原型对象
-  Object.setPrototypeOf(obj, constructor.prototype)// obj.__proto__ = constructor.prototype
+  Object.setPrototypeOf(obj, constructor.prototype) // obj.__proto__ = constructor.prototype
   // 3. 将构建函数的 this 指向新对象
   const result = constructor.apply(obj, args)
   // 4. 根据返回值判断
@@ -525,7 +525,7 @@ Person.prototype.say = function () {
 }
 
 const p = myNew(Person, '张三', 18)
-p.say()// 张三 18
+p.say() // 张三 18
 ```
 
 ::: tip
@@ -540,22 +540,22 @@ p.say()// 张三 18
 console.time('create运行时间')
 // 嵌套函数字面量
 const Person = Object.create({
-  name: '张三',
+  name: '张三'
 })
 Person.getName = function () {
   console.log(this.name)
 }
 // 调用方法
-Person.getName()// 张三
-console.timeEnd('create运行时间')// 0.429931640625 ms
+Person.getName() // 张三
+console.timeEnd('create运行时间') // 0.429931640625 ms
 ```
 
 ```ts
-Object.create(null)// 创建一个纯净的对象
+Object.create(null) // 创建一个纯净的对象
 const obj = {}
 const objCreate = Object.create(null)
-console.log(obj.hasOwnProperty)// ƒ hasOwnProperty() { [native code] }
-console.log(objCreate.hasOwnProperty)// undefined
+console.log(obj.hasOwnProperty) // ƒ hasOwnProperty() { [native code] }
+console.log(objCreate.hasOwnProperty) // undefined
 ```
 
 ### 运行时间
@@ -584,7 +584,7 @@ var name = '张三'
 function person() {
   return this.name
 }
-console.log(person())// 张三
+console.log(person()) // 张三
 ```
 
 严格模式 `this` 指向 `undefined`
@@ -596,7 +596,7 @@ var name = '张三'
 function person() {
   console.log(this)
 }
-person()// undefined
+person() // undefined
 ```
 
 ### 隐式绑定
@@ -612,12 +612,12 @@ const obj = {
   name: '张三',
   person,
   nest: {
-    person,
-  },
+    person
+  }
 }
 
-obj.person()// 张三
-obj.nest.person()// undefined
+obj.person() // 张三
+obj.nest.person() // undefined
 ```
 
 `this` 永远指向的是最后调用它的对象
@@ -629,12 +629,12 @@ function person() {
 
 const obj = {
   name: '张三',
-  person,
+  person
 }
 
 const obj2 = obj.person
 
-obj2()// 严格模式 undefined，非严格模式 window
+obj2() // 严格模式 undefined，非严格模式 window
 ```
 
 ### new 绑定
@@ -649,7 +649,7 @@ function Person() {
 }
 
 const person = new Person()
-console.log(person.name)// 张三
+console.log(person.name) // 张三
 ```
 
 ```ts
@@ -659,7 +659,7 @@ function Person() {
 }
 
 const person = new Person()
-console.log(person.name)// undefined
+console.log(person.name) // undefined
 ```
 
 ### 显示绑定
@@ -678,10 +678,10 @@ const obj = {
   },
   arrowFn: () => {
     console.log(this)
-  },
+  }
 }
-obj.fn()// 张三
-obj.arrowFn()// this 指向 严格模式 undefined，非严格模式 window
+obj.fn() // 张三
+obj.arrowFn() // this 指向 严格模式 undefined，非严格模式 window
 ```
 
 ## 🔸 bind、call、apply
@@ -695,11 +695,11 @@ const obj = {
   name: '张三',
   say(...args) {
     console.log(this.name, ...args)
-  },
+  }
 }
 
-setTimeout(obj.say, 0)// ''  this === window
-setTimeout(obj.say.bind(obj, 1, 2), 0)// 张三 1 2
+setTimeout(obj.say, 0) // ''  this === window
+setTimeout(obj.say.bind(obj, 1, 2), 0) // 张三 1 2
 
 const bindFn = obj.say.bind(obj, 1, 2)
 bindFn(3, 4)
@@ -713,10 +713,10 @@ function fn(...args) {
   console.log(this, args)
 }
 const obj = {
-  name: '张三',
+  name: '张三'
 }
-fn.apply(obj, [1, 2])// this 会变成传入的 obj，传入的参数必须是一个数组
-fn(1, 2)// this 指向 严格模式 undefined，非严格模式 window
+fn.apply(obj, [1, 2]) // this 会变成传入的 obj，传入的参数必须是一个数组
+fn(1, 2) // this 指向 严格模式 undefined，非严格模式 window
 ```
 
 - call 和 apply 使用方式几乎一样，只是参数是一个列表
@@ -726,10 +726,10 @@ function fn(...args) {
   console.log(this, args)
 }
 const obj = {
-  name: '张三',
+  name: '张三'
 }
-fn.call(obj, 1, 2)// this 会变成传入的 obj，传入的参数必须是一个数组
-fn(1, 2)// this 指向 严格模式 undefined，非严格模式 window
+fn.call(obj, 1, 2) // this 会变成传入的 obj，传入的参数必须是一个数组
+fn(1, 2) // this 指向 严格模式 undefined，非严格模式 window
 ```
 
 当第一个参数传入非引用类型时情况如下：
@@ -960,7 +960,7 @@ c.add()
 // 1
 // 2
 // 3
-console.timeEnd('class')// class: 0.072998046875 ms
+console.timeEnd('class') // class: 0.072998046875 ms
 
 console.time('closure')
 function counter() {
@@ -977,7 +977,7 @@ foo()
 // 1
 // 2
 // 3
-console.timeEnd('closure')// closure: 0.1240234375 ms
+console.timeEnd('closure') // closure: 0.1240234375 ms
 ```
 
 #### 私有变量和方法
@@ -1095,7 +1095,7 @@ list[2]()
 const list = []
 // eslint-disable-next-line vars-on-top, no-var
 for (var i = 0; i < 3; i++) {
-  (function (i) {
+  ;(function (i) {
     list[i] = function () {
       console.log(i)
     }
@@ -1173,4 +1173,6 @@ function f2(x) {
 
 https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Guide/Regular_Expressions
 
-<script setup></script>
+<script setup>
+
+</script>

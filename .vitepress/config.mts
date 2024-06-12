@@ -20,7 +20,8 @@ export default defineConfig({
       {
         text: '基础知识',
         items: [
-          { text: 'browser', link: '/frontend/browser' },
+          { text: '设计', link: '/frontend/design' },
+          { text: '浏览器', link: '/frontend/browser' },
           { text: 'html', link: '/frontend/html' },
           { text: 'css', link: '/frontend/css' },
           { text: 'javaScript', link: '/frontend/javaScript' },

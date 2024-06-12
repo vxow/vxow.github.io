@@ -44,8 +44,5 @@
     "gql",
     "graphql",
     "astro"
-  ],
-  "yaml.schemas": {
-    "https://json.schemastore.org/github-workflow.json": "file:///Users/gaomingjun/project/personal/vxow.github.io/.github/workflows/deploy.yml"
-  }
+  ]
 }
