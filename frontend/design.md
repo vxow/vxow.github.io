@@ -77,6 +77,8 @@ module.exports = {
 
 ### **使用 `class` 实现**
 
+::: details 示例
+
 ```ts
 class Singleton {
   constructor() {
@@ -103,6 +105,8 @@ console.log(instance1 === instance2)
 // say Hello World
 // true
 ```
+
+:::
 
 也可以使用 `闭包` 实现 [单例模式](/frontend/javaScript.html#单例模式)
 
@@ -131,9 +135,82 @@ console.log(instance1 === instance2)
 
 :::
 
+## 🔸 适配器模式
+
+**适配器模式（Adapter Pattern）**：通过一个适配器将一个类的接口转换成期望的另一个接口，使原本不能一起工作的类能够协同工作。
+
+### 结构组成
+
+- 适配者类（旧的标准）
+- 目标类（新的标准）
+- 适配器类（适配器）
+
+::: details 示例
+
+```ts
+/**
+ * 适配者类
+ */
+class Usb {
+  constructor() {
+    this.name = 'usb'
+  }
+
+  use() {
+    console.log('Use usb')
+  }
+}
+/**
+ * 目标类
+ */
+class TypeC {
+  constructor() {
+    this.name = 'type-c'
+  }
+
+  use() {
+    console.log('Use type-c')
+  }
+}
+/**
+ * 适配器
+ */
+class Adapter {
+  constructor(instance) {
+    this.name = instance.name
+  }
+
+  use() {
+    switch (this.name) {
+      case 'usb':
+        instance.use()
+        break
+      case 'type-c':
+        /**
+         * changeover
+         */
+        console.log('Adapting type-c to usb.')
+        break
+      default:
+        throw new Error('Invalid socket type.')
+    }
+  }
+}
+
+const usb = new Usb()
+const typeC = new TypeC()
+const normal = new Adapter(typeC)
+normal.use()
+// Adapting type-c to usb.
+```
+
+:::
+
 ## 🔸 工厂模式
 
 **工厂模式 (Factory pattern)**：一种创建对象的方式，使得创建对象的过程与使用对象的过程分离。
+
+### 模式分类
 
 - 简单工厂模式（Simple Factory）
 - 工厂方法模式（Factory Method）
@@ -148,6 +225,8 @@ console.log(instance1 === instance2)
 1. 定义多个产品类
 2. 创建一个工厂类
 3. 通过一个工厂生产多种产品
+
+::: details 示例
 
 ```ts
 /**
@@ -225,6 +304,8 @@ truck.run()
 // Truck is running.
 ```
 
+:::
+
 ### 工厂方法模式（Factory Method）
 
 多个工厂类，一个产品类，利用多态创建不同的产品对象。
@@ -235,6 +316,8 @@ truck.run()
 2. 创建一个抽象工厂类
 3. 为每种产品创建一个工厂类继承抽象工厂类，并实现抽象方法
 4. 通过多个工厂生产对应产品
+
+::: details 示例
 
 ```ts
 /**
@@ -338,6 +421,8 @@ truck.run()
 // Truck is running.
 ```
 
+:::
+
 ### 抽象工厂模式（Abstract Factory）
 
 多个工厂类，多个产品类、产品子类分组，同一个工厂实现类创建同组中不同产品。
@@ -349,6 +434,8 @@ truck.run()
 3. 创建一个抽象工厂类
 4. 为每种产品创建一个工厂类继承抽象工厂类，并实现抽象方法
 5. 通过多组工厂生产对应产品
+
+::: details 示例
 
 ```ts
 /**
@@ -552,3 +639,154 @@ truck2.run()
 // Truck is created at the branch.
 // Truck2 is running.
 ```
+
+:::
+
+## 🔸 观察者模式
+
+一种一对多的依赖关系，当 `主题（Subject）` 的状态发生改变时，其所有 `观察者（Observer）` 都会收到通知并自动更新。
+
+### 结构组成
+
+- 主题（Subject）
+- 观察者（Observer）
+
+#### 主题（Subject）
+
+- 提供订阅、取消订阅能力
+- 维护观察者列表
+- 通知
+
+#### 观察者（Observer）
+
+- 接收通知
+
+![观察者模式](/img/design/observer.png)
+
+::: details 示例
+
+```ts
+class Subject {
+  constructor() {
+    this.observers = new Set()
+  }
+
+  subscribe(observer) {
+    this.observers.add(observer)
+  }
+
+  unsubscribe(observer) {
+    this.observers.delete(observer)
+  }
+
+  notify(data) {
+    for (const observer of this.observers) {
+      observer.update(data)
+    }
+  }
+}
+
+class Observer {
+  update(data) {
+    console.log(data)
+  }
+}
+
+const subject = new Subject()
+const observer = new Observer()
+subject.subscribe(observer)
+subject.notify('Hello World')
+// Hello World
+subject.unsubscribe(observer)
+subject.notify('Hello World')
+```
+
+:::
+
+## 🔸 发布订阅模式
+
+一种多对多的依赖关系，当 `主题（Subject）` 的状态发生改变时，其所有 `观察者（Observer）` 都会收到通知并自动更新。
+
+### 结构组成
+
+- 发布者（Publisher）
+- 事件调度中心（Event Channel）
+- 订阅者（Subscriber）
+
+#### 发布者（Publisher）
+
+- 发布信息
+
+#### 事件调度中心（Event Channel）
+
+- 提供订阅、取消订阅能力
+- 维护观察者列表
+- 通知
+
+#### 订阅者（Subscriber）
+
+- 接收通知
+
+![发布订阅模式](/img/design/publish.png)
+
+::: details 示例
+
+```ts
+class EventEmitter {
+  constructor() {
+    this.listeners = new Map()
+  }
+
+  on(name, listener) {
+    if (!this.listeners.has(name)) {
+      this.listeners.set(name, new Set())
+    }
+    const listeners = this.listeners.get(name)
+    listeners.add(listener)
+  }
+
+  off(name, listener) {
+    if (this.listeners.has(name)) {
+      const listeners = this.listeners.get(name)
+      listeners.delete(listener)
+    }
+  }
+
+  emit(name, data) {
+    if (this.listeners.has(name)) {
+      const listeners = this.listeners.get(name)
+      listeners.forEach(listener => listener(data))
+    }
+  }
+
+  once(name, listener) {
+    const oneTimeListener = (...args) => {
+      this.off(name, oneTimeListener)
+      listener.apply(this, args)
+    }
+    this.on(name, oneTimeListener)
+  }
+}
+
+const eventEmitter = new EventEmitter()
+
+function update(data) {
+  console.log(data)
+}
+
+eventEmitter.on('message', update)
+eventEmitter.emit('message', 'Hello World')
+eventEmitter.off('message', update)
+console.log(`message has been removed.`)
+eventEmitter.emit('message', 'Hello World')
+eventEmitter.once('once-message', (data) => {
+  console.log(data)
+})
+eventEmitter.emit('once-message', 'Hello World')
+eventEmitter.emit('once-message', 'Hello World again')
+// Hello World
+// message has been removed.
+// Hello World
+```
+
+:::
