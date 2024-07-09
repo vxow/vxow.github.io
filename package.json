@@ -2,7 +2,7 @@
   "type": "module",
   "private": true,
   "scripts": {
-    "dev": "vitepress dev --host 0.0.0.0",
+    "dev": "vitepress dev --port 7788 --host 0.0.0.0",
     "build": "vitepress build",
     "preview": "vitepress preview",
     "lint": "eslint .",

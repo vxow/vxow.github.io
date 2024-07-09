@@ -38,8 +38,8 @@ Chrome 版本 124.0.6367.208（正式版本） (arm64)
 类似 `push` 方式向内存写入，类似 `pop` 方式从内存中移除。
 
 ```ts
-const name = '张三'
-const age = 18
+const name = '张三';
+const age = 18;
 ```
 
 ![栈](/img/javaScript/stack.png)
@@ -47,9 +47,9 @@ const age = 18
 #### 栈赋值
 
 ```ts
-let name = '张三'
-const name2 = name
-name = '李四'
+let name = '张三';
+const name2 = name;
+name = '李四';
 ```
 
 ![栈赋值](/img/javaScript/clone-stack.png)
@@ -60,12 +60,12 @@ name = '李四'
 - 存储空间大，分配灵活，但效率相对较低
 
 ```ts
-const name = '张三'
-const age = 18
+const name = '张三';
+const age = 18;
 const obj = {
   name: '张三',
-  age: 18
-}
+  age: 18,
+};
 ```
 
 ![堆](/img/javaScript/heap.png)
@@ -75,11 +75,11 @@ const obj = {
 ```ts
 const obj = {
   name: '张三',
-  age: 18
-}
-const obj2 = obj
-obj.age = 20
-console.log(obj2.age)
+  age: 18,
+};
+const obj2 = obj;
+obj.age = 20;
+console.log(obj2.age);
 // 20
 ```
 
@@ -113,23 +113,23 @@ const obj = {
   age: 18,
   childArr: [1, 2, 3],
   childObj: {
-    childName: '张三2'
+    childName: '张三2',
   },
   childArr2: [1],
   childObj2: {
-    childName: '张三3'
-  }
-}
-const obj2 = Object.assign({}, obj)
-obj2.name = '李四'
-obj2.age = 20
-obj2.childArr = [4, 5, 6]
+    childName: '张三3',
+  },
+};
+const obj2 = Object.assign({}, obj);
+obj2.name = '李四';
+obj2.age = 20;
+obj2.childArr = [4, 5, 6];
 obj2.childObj = {
-  childName: '李四2'
-}
-obj2.childArr2[0] = 4
-obj2.childObj2.childName = '李四3'
-console.log(JSON.stringify(obj, null, 2))
+  childName: '李四2',
+};
+obj2.childArr2[0] = 4;
+obj2.childObj2.childName = '李四3';
+console.log(JSON.stringify(obj, null, 2));
 // {
 //   "name": "张三",
 //   "age": 18,
@@ -153,27 +153,27 @@ console.log(JSON.stringify(obj, null, 2))
 #### Object.create()
 
 ```ts
-const obj = {}
-const obj2 = Object.create(obj)
+const obj = {};
+const obj2 = Object.create(obj);
 ```
 
 #### Spread Operator
 
 ```ts
-const obj = {}
+const obj = {};
 const obj2 = {
-  ...obj
-}
+  ...obj,
+};
 ```
 
 #### Array
 
 ```ts
-const list = [1, 2, 3]
-const list2 = list.slice()
-const list3 = [].concat(list)
-const list4 = [...list]
-const list5 = Array.from(list)
+const list = [1, 2, 3];
+const list2 = list.slice();
+const list3 = [].concat(list);
+const list4 = [...list];
+const list5 = Array.from(list);
 ```
 
 #### 自定义函数
@@ -181,19 +181,19 @@ const list5 = Array.from(list)
 ```ts
 function clone(value) {
   if (value === null) {
-    return null
+    return null;
   }
   if (typeof value !== 'object') {
-    return value
+    return value;
   }
   // TODO Date、RegExp、Symbol、Buffer、ArrayBuffer、DataView、TypedArray
-  const result = new value.constructor()
+  const result = new value.constructor();
   for (const prop in value) {
     if (Object.prototype.hasOwnProperty.call(value, prop)) {
-      result[prop] = value[prop]
+      result[prop] = value[prop];
     }
   }
-  return result
+  return result;
 }
 ```
 
@@ -211,19 +211,19 @@ function clone(value) {
 ##### JSON.stringify()
 
 ```ts
-const _ = require('lodash')
+const _ = require('lodash');
 const obj = {
   name: '张三',
   age: 18,
   childArr: [1],
   childObj: {
-    childName: '张三3'
-  }
-}
-const obj2 = JSON.parse(JSON.stringify(obj))
-obj2.childArr[0] = 2
-obj2.childObj.childName = '李四3'
-console.log(JSON.stringify(obj, null, 2))
+    childName: '张三3',
+  },
+};
+const obj2 = JSON.parse(JSON.stringify(obj));
+obj2.childArr[0] = 2;
+obj2.childObj.childName = '李四3';
+console.log(JSON.stringify(obj, null, 2));
 // {
 //   "name": "张三",
 //   "age": 18,
@@ -251,17 +251,17 @@ console.log(JSON.stringify(obj, null, 2))
 ##### `lodash` => `_.cloneDeep()`
 
 ```ts
-const _ = require('lodash')
-const obj = {}
-const obj2 = _.cloneDeep(obj)
+const _ = require('lodash');
+const obj = {};
+const obj2 = _.cloneDeep(obj);
 ```
 
 ##### `jQuery` => `jQuery.extend()`
 
 ```ts
-const $ = require('jquery')
-const obj = {}
-const obj2 = $.extend(true, {}, obj)
+const $ = require('jquery');
+const obj = {};
+const obj2 = $.extend(true, {}, obj);
 ```
 
 ##### 自定义函数
@@ -269,23 +269,23 @@ const obj2 = $.extend(true, {}, obj)
 ```ts
 function cloneDeep(value, hash = new WeakMap()) {
   if (value === null) {
-    return null
+    return null;
   }
   if (typeof value !== 'object') {
-    return value
+    return value;
   }
   // TODO Date、RegExp、Symbol、Buffer、ArrayBuffer、DataView、TypedArray
   if (hash.get(value)) {
-    return hash.get(value)
+    return hash.get(value);
   }
-  const result = new value.constructor()
-  hash.set(value, result)
+  const result = new value.constructor();
+  hash.set(value, result);
   for (const key in value) {
     if (Object.prototype.hasOwnProperty.call(value, key)) {
-      result[key] = cloneDeep(value[key], hash)
+      result[key] = cloneDeep(value[key], hash);
     }
   }
-  return result
+  return result;
 }
 ```
 
@@ -295,20 +295,20 @@ function cloneDeep(value, hash = new WeakMap()) {
 typeof 能够检测出 string、number、boolean、function、symbol、bigint。
 
 ```ts
-typeof 1 // 'number'
-typeof '1' // 'string'
-typeof true // 'boolean'
-typeof undefined // 'undefined'
-typeof null // 'object'
-typeof [] // 'object'
-typeof {} // 'object'
-typeof console // 'object'
-typeof console.log // 'function'
-typeof new Date() // 'object'
-typeof Date() // 'string'
-typeof Symbol('') // 'symbol'
-typeof 1n === 'bigint' // true
-typeof BigInt('1') === 'bigint' // true
+typeof 1; // 'number'
+typeof '1'; // 'string'
+typeof true; // 'boolean'
+typeof undefined; // 'undefined'
+typeof null; // 'object'
+typeof []; // 'object'
+typeof {}; // 'object'
+typeof console; // 'object'
+typeof console.log; // 'function'
+typeof new Date(); // 'object'
+typeof Date(); // 'string'
+typeof Symbol(''); // 'symbol'
+typeof 1n === 'bigint'; // true
+typeof BigInt('1') === 'bigint'; // true
 ```
 
 - instanceof 运算符用于检测构造函数的 prototype 属性是否出现在某个实例对象的原型链上。
@@ -318,18 +318,18 @@ typeof BigInt('1') === 'bigint' // true
 function myInstanceof(left, right) {
   // 这里先用typeof来判断基础数据类型，如果是，直接返回false
   if (typeof left !== 'object' || left === null) {
-    return false
+    return false;
   }
   // getProtypeOf是Object对象自带的API，能够拿到参数的原型对象
-  let proto = Object.getPrototypeOf(left)
+  let proto = Object.getPrototypeOf(left);
   while (true) {
     if (proto === null) {
-      return false
+      return false;
     }
     if (proto === right.prototype) {
-      return true // 找到相同原型对象，返回true
+      return true; // 找到相同原型对象，返回true
     }
-    proto = Object.getPrototypeof(proto)
+    proto = Object.getPrototypeof(proto);
   }
 }
 ```
@@ -337,21 +337,21 @@ function myInstanceof(left, right) {
 ### 准确的判断类型
 
 ```ts
-Object.prototype.toString.call({}) // "[object Object]"
-Object.prototype.toString.call(1) // "[object Number]"
-Object.prototype.toString.call('1') // "[object String]"
-Object.prototype.toString.call(true) // "[object Boolean]"
-Object.prototype.toString.call(() => {}) // "[object Function]"
-Object.prototype.toString.call(null) // "[object Null]"
-Object.prototype.toString.call(undefined) // "[object Undefined]"
-Object.prototype.toString.call(/123/g) // "[object RegExp]"
-Object.prototype.toString.call(new Date()) // "[object Date]"
-Object.prototype.toString.call([]) // "[object Array]"
-Object.prototype.toString.call(document) // "[object HTMLDocument]"
-Object.prototype.toString.call(window) // "[object Window]"
-Object.prototype.toString.call(1n) // "[object BigInt]"
-Object.prototype.toString.call(BigInt('1')) // "[object BigInt]"
-Object.prototype.toString.call(Symbol('')) // "[object Symbol]"
+Object.prototype.toString.call({}); // "[object Object]"
+Object.prototype.toString.call(1); // "[object Number]"
+Object.prototype.toString.call('1'); // "[object String]"
+Object.prototype.toString.call(true); // "[object Boolean]"
+Object.prototype.toString.call(() => {}); // "[object Function]"
+Object.prototype.toString.call(null); // "[object Null]"
+Object.prototype.toString.call(undefined); // "[object Undefined]"
+Object.prototype.toString.call(/123/g); // "[object RegExp]"
+Object.prototype.toString.call(new Date()); // "[object Date]"
+Object.prototype.toString.call([]); // "[object Array]"
+Object.prototype.toString.call(document); // "[object HTMLDocument]"
+Object.prototype.toString.call(window); // "[object Window]"
+Object.prototype.toString.call(1n); // "[object BigInt]"
+Object.prototype.toString.call(BigInt('1')); // "[object BigInt]"
+Object.prototype.toString.call(Symbol('')); // "[object Symbol]"
 ```
 
 ## 🔸 类型转换
@@ -413,8 +413,8 @@ Object.prototype.toString.call(Symbol('')) // "[object Symbol]"
 - `substring` 和 `slice` 使用方法相似，`slice` 支持负数，`substring` 不支持。
 
 ```ts
-const string = 'Hello World'
-string.substring(5, -1) // => string.substring(5, 0) => string.substring(0, 5)
+const string = 'Hello World';
+string.substring(5, -1); // => string.substring(5, 0) => string.substring(0, 5)
 // 'Hello'
 ```
 
@@ -465,17 +465,17 @@ string.substring(5, -1) // => string.substring(5, 0) => string.substring(0, 5)
 ### 对象字面量
 
 ```ts
-console.time('函数字面量运行时间')
+console.time('函数字面量运行时间');
 // 嵌套函数字面量
 const Person = {
-  name: '张三'
-}
-Person.getName = function () {
-  console.log(this.name)
-}
+  name: '张三',
+};
+Person.getName = function() {
+  console.log(this.name);
+};
 // 调用方法
-Person.getName() // 张三
-console.timeEnd('函数字面量运行时间') // 0.376953125 ms
+Person.getName(); // 张三
+console.timeEnd('函数字面量运行时间'); // 0.376953125 ms
 ```
 
 ### [new](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Operators/new)
@@ -488,19 +488,19 @@ console.timeEnd('函数字面量运行时间') // 0.376953125 ms
 ```ts
 // 构造函数
 function Person(name) {
-  this.name = name
+  this.name = name;
 }
 // 原型添加方法
-Person.prototype.getName = function () {
-  console.log(this.name)
-}
+Person.prototype.getName = function() {
+  console.log(this.name);
+};
 
-console.time('构造函数运行时间')
+console.time('构造函数运行时间');
 // 生成实例
-const person = new Person('张三')
+const person = new Person('张三');
 // 调用方法
-person.getName() // 张三
-console.timeEnd('构造函数运行时间') // 构造函数运行时间: 0.489013671875 ms
+person.getName(); // 张三
+console.timeEnd('构造函数运行时间'); // 构造函数运行时间: 0.489013671875 ms
 ```
 
 #### 实现一个 myNew
@@ -508,24 +508,24 @@ console.timeEnd('构造函数运行时间') // 构造函数运行时间: 0.48901
 ```ts
 function myNew(constructor, ...args) {
   // 1. 创建一个新对象
-  const obj = {}
+  const obj = {};
   // 2. 新对象原型指向构造函数原型对象
-  Object.setPrototypeOf(obj, constructor.prototype) // obj.__proto__ = constructor.prototype
+  Object.setPrototypeOf(obj, constructor.prototype); // obj.__proto__ = constructor.prototype
   // 3. 将构建函数的 this 指向新对象
-  const result = constructor.apply(obj, args)
+  const result = constructor.apply(obj, args);
   // 4. 根据返回值判断
-  return result instanceof Object ? result : obj
+  return result instanceof Object ? result : obj;
 }
 function Person(name, age) {
-  this.name = name
-  this.age = age
+  this.name = name;
+  this.age = age;
 }
-Person.prototype.say = function () {
-  console.log(this.name, this.age)
-}
+Person.prototype.say = function() {
+  console.log(this.name, this.age);
+};
 
-const p = myNew(Person, '张三', 18)
-p.say() // 张三 18
+const p = myNew(Person, '张三', 18);
+p.say(); // 张三 18
 ```
 
 ::: tip
@@ -537,25 +537,25 @@ p.say() // 张三 18
 [Object.create](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Object/create) 方法创建一个新对象，使用现有的对象来提供新创建的对象的 \_\_proto\_\_。
 
 ```ts
-console.time('create运行时间')
+console.time('create运行时间');
 // 嵌套函数字面量
 const Person = Object.create({
-  name: '张三'
-})
-Person.getName = function () {
-  console.log(this.name)
-}
+  name: '张三',
+});
+Person.getName = function() {
+  console.log(this.name);
+};
 // 调用方法
-Person.getName() // 张三
-console.timeEnd('create运行时间') // 0.429931640625 ms
+Person.getName(); // 张三
+console.timeEnd('create运行时间'); // 0.429931640625 ms
 ```
 
 ```ts
-Object.create(null) // 创建一个纯净的对象
-const obj = {}
-const objCreate = Object.create(null)
-console.log(obj.hasOwnProperty) // ƒ hasOwnProperty() { [native code] }
-console.log(objCreate.hasOwnProperty) // undefined
+Object.create(null); // 创建一个纯净的对象
+const obj = {};
+const objCreate = Object.create(null);
+console.log(obj.hasOwnProperty); // ƒ hasOwnProperty() { [native code] }
+console.log(objCreate.hasOwnProperty); // undefined
 ```
 
 ### 运行时间
@@ -580,23 +580,23 @@ console.log(objCreate.hasOwnProperty) // undefined
 
 ```ts
 // eslint-disable-next-line no-var
-var name = '张三'
+var name = '张三';
 function person() {
-  return this.name
+  return this.name;
 }
-console.log(person()) // 张三
+console.log(person()); // 张三
 ```
 
 严格模式 `this` 指向 `undefined`
 
 ```ts
-'use strict'
+'use strict';
 // eslint-disable-next-line no-var
-var name = '张三'
+var name = '张三';
 function person() {
-  console.log(this)
+  console.log(this);
 }
-person() // undefined
+person(); // undefined
 ```
 
 ### 隐式绑定
@@ -605,36 +605,36 @@ person() // undefined
 
 ```ts
 function person() {
-  console.log(this.name)
+  console.log(this.name);
 }
 
 const obj = {
   name: '张三',
   person,
   nest: {
-    person
-  }
-}
+    person,
+  },
+};
 
-obj.person() // 张三
-obj.nest.person() // undefined
+obj.person(); // 张三
+obj.nest.person(); // undefined
 ```
 
 `this` 永远指向的是最后调用它的对象
 
 ```ts
 function person() {
-  console.log(this)
+  console.log(this);
 }
 
 const obj = {
   name: '张三',
-  person
-}
+  person,
+};
 
-const obj2 = obj.person
+const obj2 = obj.person;
 
-obj2() // 严格模式 undefined，非严格模式 window
+obj2(); // 严格模式 undefined，非严格模式 window
 ```
 
 ### new 绑定
@@ -643,23 +643,23 @@ obj2() // 严格模式 undefined，非严格模式 window
 
 ```ts
 function Person() {
-  this.name = '张三'
+  this.name = '张三';
   // string、number、boolean、null、undefined、symbol、bigint
-  return null
+  return null;
 }
 
-const person = new Person()
-console.log(person.name) // 张三
+const person = new Person();
+console.log(person.name); // 张三
 ```
 
 ```ts
 function Person() {
-  this.name = '张三'
-  return {}
+  this.name = '张三';
+  return {};
 }
 
-const person = new Person()
-console.log(person.name) // undefined
+const person = new Person();
+console.log(person.name); // undefined
 ```
 
 ### 显示绑定
@@ -674,14 +674,14 @@ console.log(person.name) // undefined
 const obj = {
   name: '张三',
   fn() {
-    console.log(this.name)
+    console.log(this.name);
   },
   arrowFn: () => {
-    console.log(this)
-  }
-}
-obj.fn() // 张三
-obj.arrowFn() // this 指向 严格模式 undefined，非严格模式 window
+    console.log(this);
+  },
+};
+obj.fn(); // 张三
+obj.arrowFn(); // this 指向 严格模式 undefined，非严格模式 window
 ```
 
 ## 🔸 bind、call、apply
@@ -694,15 +694,15 @@ obj.arrowFn() // this 指向 严格模式 undefined，非严格模式 window
 const obj = {
   name: '张三',
   say(...args) {
-    console.log(this.name, ...args)
-  }
-}
+    console.log(this.name, ...args);
+  },
+};
 
-setTimeout(obj.say, 0) // ''  this === window
-setTimeout(obj.say.bind(obj, 1, 2), 0) // 张三 1 2
+setTimeout(obj.say, 0); // ''  this === window
+setTimeout(obj.say.bind(obj, 1, 2), 0); // 张三 1 2
 
-const bindFn = obj.say.bind(obj, 1, 2)
-bindFn(3, 4)
+const bindFn = obj.say.bind(obj, 1, 2);
+bindFn(3, 4);
 // 张三 1 2 3 4
 ```
 
@@ -710,26 +710,26 @@ bindFn(3, 4)
 
 ```ts
 function fn(...args) {
-  console.log(this, args)
+  console.log(this, args);
 }
 const obj = {
-  name: '张三'
-}
-fn.apply(obj, [1, 2]) // this 会变成传入的 obj，传入的参数必须是一个数组
-fn(1, 2) // this 指向 严格模式 undefined，非严格模式 window
+  name: '张三',
+};
+fn.apply(obj, [1, 2]); // this 会变成传入的 obj，传入的参数必须是一个数组
+fn(1, 2); // this 指向 严格模式 undefined，非严格模式 window
 ```
 
 - call 和 apply 使用方式几乎一样，只是参数是一个列表
 
 ```ts
 function fn(...args) {
-  console.log(this, args)
+  console.log(this, args);
 }
 const obj = {
-  name: '张三'
-}
-fn.call(obj, 1, 2) // this 会变成传入的 obj，传入的参数必须是一个数组
-fn(1, 2) // this 指向 严格模式 undefined，非严格模式 window
+  name: '张三',
+};
+fn.call(obj, 1, 2); // this 会变成传入的 obj，传入的参数必须是一个数组
+fn(1, 2); // this 指向 严格模式 undefined，非严格模式 window
 ```
 
 当第一个参数传入非引用类型时情况如下：
@@ -770,11 +770,11 @@ fn(1, 2) // this 指向 严格模式 undefined，非严格模式 window
 
 ```ts
 // 全局变量
-const text = 'Hello World'
+const text = 'Hello World';
 function say() {
-  console.log(text)
+  console.log(text);
 }
-say()
+say();
 // Hello World
 ```
 
@@ -784,11 +784,11 @@ say()
 
 ```ts
 function say() {
-  const text = 'Hello World'
-  console.log(text)
+  const text = 'Hello World';
+  console.log(text);
 }
-say()
-console.log(text)
+say();
+console.log(text);
 // Hello World
 // Uncaught ReferenceError: text is not defined
 ```
@@ -797,14 +797,14 @@ console.log(text)
 
 ```ts
 {
-  const text = 'Hello World'
+  const text = 'Hello World';
   // eslint-disable-next-line vars-on-top, no-var
-  var name = '张三'
-  console.log(text)
+  var name = '张三';
+  console.log(text);
 }
 // eslint-disable-next-line block-scoped-var
-console.log(name)
-console.log(text)
+console.log(name);
+console.log(text);
 // Hello World
 // 张三
 // Uncaught ReferenceError: text is not defined
@@ -858,13 +858,13 @@ console.log(text)
 
 ```ts
 function outer() {
-  const count = 0
+  const count = 0;
   function inner() {
-    console.log(count)
+    console.log(count);
   }
-  inner()
+  inner();
 }
-outer()
+outer();
 ```
 
 在浏览器下可以看到 `count` 变量和 `inner` 函数形成了 `闭包`，后续没有任何引用，`outer()` 执行完毕后生命周期结束。
@@ -876,12 +876,12 @@ outer()
 ```ts
 function outer() {
   function inner() {
-    const count = 0
-    console.log(count)
+    const count = 0;
+    console.log(count);
   }
-  inner()
+  inner();
 }
-outer()
+outer();
 ```
 
 ![不是闭包示例](/img/javaScript/no-closure.png)
@@ -893,12 +893,12 @@ outer()
 ##### 不使用闭包实现
 
 ```ts
-let count = 0
+let count = 0;
 function sum() {
-  count++
-  console.log(count)
+  count++;
+  console.log(count);
 }
-sum()
+sum();
 ```
 
 缺点
@@ -909,23 +909,23 @@ sum()
 
 ```ts
 function sum() {
-  let count = 0
-  return function () {
-    count++
-    console.log(count)
-  }
+  let count = 0;
+  return function() {
+    count++;
+    console.log(count);
+  };
 }
-const foo = sum()
-foo()
-foo()
-foo()
+const foo = sum();
+foo();
+foo();
+foo();
 // 1
 // 2
 // 3
-const bar = sum()
-bar()
-bar()
-bar()
+const bar = sum();
+bar();
+bar();
+bar();
 // 1
 // 2
 // 3
@@ -942,42 +942,42 @@ bar()
 **使用 `class` 实现**，使用 `class` 实现性能优于 `闭包`。
 
 ```ts
-console.time('class')
+console.time('class');
 class Counter {
   constructor() {
-    this.count = 0
+    this.count = 0;
   }
 
   add() {
-    this.count++
-    console.log(this.count)
+    this.count++;
+    console.log(this.count);
   }
 }
-const c = new Counter()
-c.add()
-c.add()
-c.add()
+const c = new Counter();
+c.add();
+c.add();
+c.add();
 // 1
 // 2
 // 3
-console.timeEnd('class') // class: 0.072998046875 ms
+console.timeEnd('class'); // class: 0.072998046875 ms
 
-console.time('closure')
+console.time('closure');
 function counter() {
-  let count = 0
-  return function () {
-    count++
-    console.log(count)
-  }
+  let count = 0;
+  return function() {
+    count++;
+    console.log(count);
+  };
 }
-const foo = counter()
-foo()
-foo()
-foo()
+const foo = counter();
+foo();
+foo();
+foo();
 // 1
 // 2
 // 3
-console.timeEnd('closure') // closure: 0.1240234375 ms
+console.timeEnd('closure'); // closure: 0.1240234375 ms
 ```
 
 #### 私有变量和方法
@@ -986,16 +986,16 @@ console.timeEnd('closure') // closure: 0.1240234375 ms
 
 ```ts
 class Person {
-  #name = '张三'
+  #name = '张三';
   #say() {
-    console.log(this.#name, 'Hello World')
+    console.log(this.#name, 'Hello World');
   }
 
   constructor() {
-    this.#say()
+    this.#say();
   }
 }
-const person = new Person()
+const person = new Person();
 // person.#name 报错
 // person.#say() 报错
 ```
@@ -1004,17 +1004,17 @@ const person = new Person()
 
 ```ts
 function Person() {
-  const _name = '张三'
-  const _say = function () {
-    console.log(_name, 'Hello World')
-  }
-  this.say = function () {
-    _say()
-  }
+  const _name = '张三';
+  const _say = function() {
+    console.log(_name, 'Hello World');
+  };
+  this.say = function() {
+    _say();
+  };
 }
 
-const person = new Person()
-person.say()
+const person = new Person();
+person.say();
 ```
 
 #### 单例模式
@@ -1025,23 +1025,23 @@ person.say()
 class Singleton {
   constructor() {
     if (Singleton.instance) {
-      return Singleton.instance
+      return Singleton.instance;
     }
-    this.text = 'Hello World'
+    this.text = 'Hello World';
     // 只执行一次
-    console.log(this.text)
-    Singleton.instance = this
+    console.log(this.text);
+    Singleton.instance = this;
   }
 
   say() {
-    console.log('say', this.text)
+    console.log('say', this.text);
   }
 }
-const instance1 = new Singleton()
-const instance2 = new Singleton()
-instance1.say()
-instance2.say()
-console.log(instance1 === instance2)
+const instance1 = new Singleton();
+const instance2 = new Singleton();
+instance1.say();
+instance2.say();
+console.log(instance1 === instance2);
 // Hello World
 // say Hello World
 // say Hello World
@@ -1051,17 +1051,17 @@ console.log(instance1 === instance2)
 **使用 `闭包` 实现**
 
 ```ts
-const say = (function () {
-  const text = 'Hello World'
+const say = (function() {
+  const text = 'Hello World';
   // 只执行一次
-  console.log(text)
+  console.log(text);
   function _say() {
-    console.log('say', text)
+    console.log('say', text);
   }
-  return _say
-})()
-say()
-say()
+  return _say;
+})();
+say();
+say();
 // Hello World
 // say Hello World
 // say Hello World
@@ -1074,16 +1074,16 @@ say()
 **变量提升**
 
 ```ts
-const list = []
+const list = [];
 // eslint-disable-next-line vars-on-top, no-var
 for (var i = 0; i < 3; i++) {
-  list[i] = function () {
-    console.log(i)
-  }
+  list[i] = function() {
+    console.log(i);
+  };
 }
-list[0]()
-list[1]()
-list[2]()
+list[0]();
+list[1]();
+list[2]();
 // 3
 // 3
 // 3
@@ -1092,18 +1092,18 @@ list[2]()
 **使用 `闭包` 防止变量提升**
 
 ```ts
-const list = []
+const list = [];
 // eslint-disable-next-line vars-on-top, no-var
 for (var i = 0; i < 3; i++) {
-  ;(function (i) {
-    list[i] = function () {
-      console.log(i)
-    }
-  })(i)
+  (function(i) {
+    list[i] = function() {
+      console.log(i);
+    };
+  })(i);
 }
-list[0]()
-list[1]()
-list[2]()
+list[0]();
+list[1]();
+list[2]();
 // 0
 // 1
 // 2
@@ -1113,14 +1113,14 @@ list[2]()
 
 ```ts
 function delay(message, time) {
-  return function () {
+  return function() {
     setTimeout(() => {
-      console.log(message)
-    }, time)
-  }
+      console.log(message);
+    }, time);
+  };
 }
-const fn = delay('Hello World', 1000)
-fn()
+const fn = delay('Hello World', 1000);
+fn();
 ```
 
 ## 🔸 尾调用
@@ -1129,7 +1129,7 @@ fn()
 
 ```ts
 function f(x) {
-  return g(x)
+  return g(x);
 }
 ```
 
@@ -1138,16 +1138,16 @@ function f(x) {
 ```ts
 // 情况一
 function f(x) {
-  const y = g(x)
-  return y
+  const y = g(x);
+  return y;
 }
 // 情况二
 function f1(x) {
-  return g(x) + 1
+  return g(x) + 1;
 }
 // 情况三
 function f2(x) {
-  g(x)
+  g(x);
 }
 ```
 
@@ -1172,7 +1172,3 @@ function f2(x) {
 难度：★★★★☆
 
 https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Guide/Regular_Expressions
-
-<script setup>
-
-</script>

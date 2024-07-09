@@ -4,6 +4,7 @@
     "jsx": "preserve",
     "lib": ["ESNext", "DOM"],
     "useDefineForClassFields": true,
+    "experimentalDecorators": true,
     "module": "ESNext",
     "moduleResolution": "Node",
     "resolveJsonModule": true,

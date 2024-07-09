@@ -1,9 +1,9 @@
-import { defineConfig } from 'vitepress'
-import type { DefaultTheme } from 'vitepress'
-import { getPosts } from './theme/serverUtils'
-import imagePlugin from './markdown/imagePlugin'
+import { defineConfig } from 'vitepress';
+import type { DefaultTheme } from 'vitepress';
+import imagePlugin from './markdown/imagePlugin';
+import { getPosts } from './theme/serverUtils';
 
-const navize = 10
+const navize = 10;
 
 export default defineConfig({
   title: '幺幺零玖',
@@ -11,12 +11,14 @@ export default defineConfig({
   themeConfig: {
     outline: {
       label: '页面导航',
+      // level: [2, 3],
     },
     posts: await getPosts(navize),
     nav: [
       { text: '首页', link: '/' },
       { text: '分类', link: '/nav/category' },
       { text: '标签', link: '/nav/tags' },
+      { text: '历史', link: '/nav/archives' },
       {
         text: '基础知识',
         items: [
@@ -28,7 +30,7 @@ export default defineConfig({
           { text: 'vue', link: '/frontend/vue' },
         ],
       },
-      { text: '历史', link: '/nav/archives' },
+      { text: '前端导航', link: '/frontend/nav' },
       { text: '关于', link: '/nav/about' },
     ],
     search: {
@@ -40,7 +42,7 @@ export default defineConfig({
   } as DefaultTheme.Config,
   markdown: {
     config: (md) => {
-      md.use(imagePlugin as any)
+      md.use(imagePlugin as any);
     },
   },
-})
+});
