@@ -1,0 +1,1 @@
+import{_ as e,c as a,o as t,af as r}from"./chunks/framework.Cx_9e8iD.js";const m=JSON.parse('{"title":"前端导航","description":"","frontmatter":{},"headers":[],"relativePath":"frontend/nav.md","filePath":"frontend/nav.md"}'),n={name:"frontend/nav.md"},o=r("",3),l=[o];function s(c,i,_,d,h,f){return t(),a("div",null,l)}const b=e(n,[["render",s]]);export{m as __pageData,b as default};
