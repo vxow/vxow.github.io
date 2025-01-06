@@ -1,4 +1,4 @@
-import config from '@antfu/eslint-config';
+import config from '@antfu/eslint-config'
 
 export default config({
   stylistic: true,
@@ -10,4 +10,4 @@ export default config({
     html: true,
     markdown: 'dprint',
   },
-});
+})

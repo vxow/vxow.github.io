@@ -1,6 +1,6 @@
 <script lang="ts" setup>
-import { nextTick, onMounted, ref, watch } from 'vue'
 import { useData } from 'vitepress'
+import { nextTick, onMounted, ref, watch } from 'vue'
 
 const utterancesRef = ref()
 const { theme, isDark } = useData()

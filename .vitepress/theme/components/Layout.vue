@@ -1,6 +1,6 @@
 <script lang="ts" setup>
-import DefaultTheme from 'vitepress/theme'
 import { useData, withBase } from 'vitepress'
+import DefaultTheme from 'vitepress/theme'
 import Copyright from './Copyright.vue'
 
 const { Layout } = DefaultTheme

@@ -5,8 +5,7 @@
     "dev": "vitepress dev --port 7788 --host 0.0.0.0",
     "build": "vitepress build",
     "preview": "vitepress preview",
-    "lint": "eslint .",
-    "lint:fix": "eslint . --fix"
+    "lint": "eslint . --fix"
   },
   "devDependencies": {
     "@antfu/eslint-config": "^3.12.1",
