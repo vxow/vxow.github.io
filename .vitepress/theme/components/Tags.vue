@@ -1,12 +1,12 @@
 <script lang="ts" setup>
+import { withBase } from 'vitepress'
 import { computed, ref } from 'vue'
-import { useData, withBase } from 'vitepress'
+import { data } from '../../data/post.data'
 import { initTags } from '../functions'
 
 const url = location.href.split('?')[1]
 const params = new URLSearchParams(url)
-const { theme } = useData()
-const data = computed(() => initTags(theme.value.posts))
+const sortData = computed(() => initTags(data))
 const selectTag = ref<string | number>(params.get('tag') as string ? params.get('tag') as string : '')
 function toggleTag(tag: string | number) {
   selectTag.value = tag
@@ -15,8 +15,8 @@ function toggleTag(tag: string | number) {
 
 <template>
   <div class="tags">
-    <span v-for="(item, key) in data" :key="key" class="tag" @click="toggleTag(key)">
-      {{ key }} <strong>{{ data[key].length }}</strong>
+    <span v-for="(item, key) in sortData" :key="key" class="tag" @click="toggleTag(key)">
+      {{ key }} <strong>{{ sortData[key].length }}</strong>
     </span>
   </div>
   <div class="tag-header">

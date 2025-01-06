@@ -1,14 +1,14 @@
 <script lang="ts" setup>
-import { useData, withBase } from 'vitepress'
+import { withBase } from 'vitepress'
 import { computed } from 'vue'
+import { data } from '../../data/post.data'
 import { initCategory } from '../functions'
 
-const { theme } = useData()
-const data = computed(() => initCategory(theme.value.posts))
+const sortData = computed(() => initCategory(data))
 </script>
 
 <template>
-  <div v-for="(posts, key) in data" :key="key">
+  <div v-for="(posts, key) in sortData" :key="key">
     <div class="category">
       {{ key }}
     </div>

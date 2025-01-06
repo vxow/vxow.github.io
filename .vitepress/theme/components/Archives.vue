@@ -1,14 +1,14 @@
 <script lang="ts" setup>
-import { useData, withBase } from 'vitepress'
+import { withBase } from 'vitepress'
 import { computed } from 'vue'
+import { data } from '../../data/post.data'
 import { useYearSort } from '../functions'
 
-const { theme } = useData()
-const data = computed(() => useYearSort(theme.value.posts))
+const sortData = computed(() => useYearSort(data))
 </script>
 
 <template>
-  <div v-for="(yearList, key) in data" :key="key">
+  <div v-for="(yearList, key) in sortData" :key="key">
     <div class="year">
       {{ yearList[0].frontMatter.date.split('-')[0] }}
     </div>

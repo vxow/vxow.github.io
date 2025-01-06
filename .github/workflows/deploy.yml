@@ -28,12 +28,23 @@ jobs:
       - name: Setup Node
         uses: actions/setup-node@v4
         with:
-          node-version: 20
+          node-version: 22
       - name: Setup pnpm
         uses: pnpm/action-setup@v4
         id: pnpm-install
         with:
           version: 9
+      - name: Get pnpm store directory
+        shell: bash
+        run: |
+          echo "STORE_PATH=$(pnpm store path --silent)" >> $GITHUB_ENV
+      - name: Setup pnpm cache 
+        uses: actions/cache@v4
+        with:
+          path: ${{ env.STORE_PATH }}
+          key: ${{ runner.os }}-pnpm-store-${{ hashFiles('**/pnpm-lock.yaml') }}
+          restore-keys: |
+            ${{ runner.os }}-pnpm-store-
       - name: Install dependencies
         run: pnpm i --no-frozen-lockfile
       - name: Build
@@ -44,5 +55,5 @@ jobs:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           personal_token: ${{ secrets.PERSONAL_TOKEN }}
           publish_dir: .vitepress/dist
-          user_name: 幺幺零玖
+          user_name: 零玖
           user_email: gmj413966791@163.com
